@@ -11,10 +11,10 @@ import {
   Trash,
 } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import { toast } from "sonner";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { UserItem } from "./user-item";
@@ -28,10 +28,12 @@ import {
 import TrashBox from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
+import Navbar from "./navbar";
 
 const Navigation = () => {
   const search = useSearch();
   const settings= useSettings();
+  const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
@@ -181,6 +183,12 @@ const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
+        {!!params.documentId ? (
+          <Navbar 
+            isCollapsed={isCollapsed}
+            onResetWidth={resetWidth}
+          />
+        ) : (
         <nav className="bg-transparent px-3 py-2 w-full">
           {isCollapsed && (
             <MenuIcon
@@ -190,6 +198,7 @@ const Navigation = () => {
             />
           )}
         </nav>
+        )}
       </div>
     </>
   );
