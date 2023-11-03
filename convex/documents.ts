@@ -266,11 +266,11 @@ export const getById = query({
     const userId = identity.subject;
 
     if (document.userId !== userId) {
-      throw new Error("Not authorized");
+      throw new Error("Unauthorized");
     }
 
     return document;
-  },
+  }
 });
 
 export const update = mutation({
