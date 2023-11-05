@@ -62,7 +62,7 @@ const Item = ({
 
     if (!id) return;
 
-    const promise = archive({ id });
+    const promise = archive({ id }).then(() => router.push("/documents"));
 
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -83,7 +83,7 @@ const Item = ({
 
     if (!id) return;
 
-    const promise = create({ title: "Untitled", parendDocument: id }).then(
+    const promise = create({ title: "Untitled", parentDocument: id }).then(
       (documentId) => {
         if (!expanded) {
           onExpand?.();

@@ -41,7 +41,6 @@ export const DocumentList = ({
   };
 
   if (documents === undefined) {
-    //
     return (
       <>
         <Item.Skeleton level={level} />
