@@ -94,7 +94,7 @@ export const get = query({
 export const create = mutation({
   args: {
     title: v.string(),
-    parendDocument: v.optional(v.id("documents")),
+    parentDocument: v.optional(v.id("documents")),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -107,7 +107,7 @@ export const create = mutation({
 
     const document = await ctx.db.insert("documents", {
       title: args.title,
-      parentDocument: args.parendDocument,
+      parentDocument: args.parentDocument,
       userId,
       isArchived: false,
       isPublished: false,
@@ -235,7 +235,7 @@ export const getSearch = query({
 
     const documents = await ctx.db
       .query("documents")
-      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .withIndex("by_user_parent", (q) => q.eq("userId", userId))
       .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
       .collect();
