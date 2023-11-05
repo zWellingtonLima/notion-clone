@@ -45,8 +45,8 @@ const SearchCommand = () => {
     return () => document.removeEventListener("keydown", down);
   }, [toggle]);
 
-  const onSelect = (id: string) => {
-    router.push(`/documents/${id}}`);
+  const onSelect = (documentId: string) => {
+    router.push(`/documents/${documentId}`);
     onClose();
   };
 
